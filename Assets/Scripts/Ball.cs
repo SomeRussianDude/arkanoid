@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
     [SerializeField] Paddle paddle1;
     [SerializeField] float dirX = 2f;
     [SerializeField] float dirY = 15f;
-    //[SerializeField] AudioClip[] ballSounds;
+    [SerializeField] AudioClip[] ballSounds;
 
     //state
     Vector2 ballToPaddleDistance;
