@@ -21,6 +21,7 @@ public class Block : MonoBehaviour
         AudioSource.PlayClipAtPoint(destroySound, Camera.current.transform.position);
         Destroy(gameObject);
         level.BlockDestroyed();
+        FindObjectOfType<GameStatus>().CountPoints();
     }
 
    

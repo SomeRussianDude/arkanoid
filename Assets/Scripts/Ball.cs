@@ -54,7 +54,10 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        myAudioSource.Play();
+        if (hasStarted)
+        {
+            myAudioSource.Play();
+        }
     }
 
     //private void OnCollisionEnter2D(Collision2D collision)
