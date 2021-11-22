@@ -6,6 +6,7 @@ public class Block : MonoBehaviour
 {
     // Configuration parameters
     [SerializeField] private AudioClip destroySound;
+    [SerializeField] private GameObject blockSparklesVFX;
 
     // Cached reference
     private Level level;
@@ -18,11 +19,27 @@ public class Block : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        AudioSource.PlayClipAtPoint(destroySound, Camera.current.transform.position);
-        Destroy(gameObject);
-        level.BlockDestroyed();
-        FindObjectOfType<GameSession>().CountPoints();
+        DestroyBlock();
     }
 
+    private void DestroyBlock()
+    {
+        PlayBlockDestroySFX();
+        level.BlockDestroyed();
+        FindObjectOfType<GameSession>().CountPoints();
+        TriggerSparklesVFX();
+    }
+
+    private void PlayBlockDestroySFX()
+    {
+        AudioSource.PlayClipAtPoint(destroySound, Camera.current.transform.position);
+        Destroy(gameObject);
+    }
+
+    private void TriggerSparklesVFX()
+    {
+        GameObject sparkles = Instantiate(blockSparklesVFX, transform.position, transform.rotation);
+        Destroy(sparkles, 1f);
+    }
    
 }
