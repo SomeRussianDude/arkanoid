@@ -60,16 +60,16 @@ public class Block : MonoBehaviour
 
     private void DestroyBlock()
     {
+        TriggerSparklesVFX();
+        Destroy(gameObject);
         PlayBlockDestroySFX();
         level.BlockDestroyed();
         FindObjectOfType<GameSession>().CountPoints();
-        TriggerSparklesVFX();
     }
 
     private void PlayBlockDestroySFX()
     {
         AudioSource.PlayClipAtPoint(destroySound, Camera.current.transform.position);
-        Destroy(gameObject);
     }
 
     private void TriggerSparklesVFX()
