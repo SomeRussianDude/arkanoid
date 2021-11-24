@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -10,6 +7,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float dirX = 2f;
     [SerializeField] float dirY = 15f;
     [SerializeField] AudioClip[] ballSounds;
+    [SerializeField] float randomFactor = 0.5f;
 
     //state
     Vector2 ballToPaddleDistance;
@@ -17,6 +15,7 @@ public class Ball : MonoBehaviour
 
     // Cashed component reference
     AudioSource myAudioSource;
+    Rigidbody2D myRigidBody2D;
 
 
     // Start is called before the first frame update
@@ -24,6 +23,7 @@ public class Ball : MonoBehaviour
     {
         ballToPaddleDistance = transform.position - paddle1.transform.position;
         myAudioSource = GetComponent<AudioSource>();
+        myRigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class Ball : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(dirX, dirY);
+            myRigidBody2D.velocity = new Vector2(dirX, dirY);
             hasStarted = true;
         }
     }
@@ -54,9 +54,13 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Vector2 velocityTweak = new Vector2
+             (Random.Range(0, randomFactor), 
+            Random.Range(0, randomFactor));
         if (hasStarted)
         {
             myAudioSource.Play();
+            myRigidBody2D.velocity += velocityTweak;
         }
     }
 

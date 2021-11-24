@@ -139,6 +139,7 @@ MonoBehaviour:
   dirX: 3
   dirY: 15
   ballSounds: []
+  randomFactor: 1.5
 --- !u!82 &4903819427888475459
 AudioSource:
   m_ObjectHideFlags: 0
