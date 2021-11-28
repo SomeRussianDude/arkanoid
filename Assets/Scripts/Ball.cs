@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float dirX = 2f;
     [SerializeField] float dirY = 15f;
     [SerializeField] AudioClip[] ballSounds;
-    [SerializeField] float randomFactor = 0.5f;
+    [SerializeField] float velocityTweakAngle = 15f;
 
     //state
     Vector2 ballToPaddleDistance;
@@ -55,8 +55,10 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 velocityTweak = new Vector2
-             (Random.Range(0, randomFactor), 
-            Random.Range(0, randomFactor));
+             (Mathf.Cos(myRigidBody2D.velocity.x * velocityTweakAngle)
+              -Mathf.Sin(myRigidBody2D.velocity.y * velocityTweakAngle), 
+                 Mathf.Sin(myRigidBody2D.velocity.x * velocityTweakAngle)
+                 +Mathf.Cos(myRigidBody2D.velocity.y * velocityTweakAngle));
         if (hasStarted)
         {
             myAudioSource.Play();
